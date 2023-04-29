@@ -1,13 +1,11 @@
-from car_resale import parser
 from psycopg2 import connect, DatabaseError
+from car_resale import parser
 
-class DatabaseConn:
-
-    """
+"""
     To establish Database connection with PostGRESql database
-    """
+"""
 
-    def get_config():
+def get_config():
         """
         To fetch database connection values from config file
         """
@@ -22,30 +20,36 @@ class DatabaseConn:
         except Exception as e:
             print("Error: ", e)
 
-    def connect_db():
-        """
-        To connect with PostGRESql database
-        """
-        con, cursor = None
+
+class DatabaseConn:
+    """
+        Context Manager class to create and close database connections
+    """
+    def __init__(self):
+        self.cursor = None
+        self.con = None
+
+    def __enter__(self):
         try:   
-            dbValues = DatabaseConn.get_config()
+            dbValues = get_config()
             host = dbValues["hostname"]
             database = dbValues["database"]
             user = dbValues["username"]
             password = dbValues["password"]
             port = dbValues["port"]
 
-            with connect(
+            self.con = connect(
                             host = host,
                             database = database,
                             user = user,
                             password = password,
                             port = port
-                                ) as con:
-                    cursor = con.cursor()
-            return cursor
+                                )
+            self.cursor = self.con.cursor()
+            return self.cursor
         except DatabaseError as e:
             print("Error: ", e)
-        finally:
-            con.close()
 
+    def __exit__(self,exc_type,exc_value,exc_traceback):
+        self.cursor.close()
+        self.con.close()

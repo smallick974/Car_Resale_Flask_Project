@@ -1,0 +1,10 @@
+
+body {
+    background-color: #e9ecef;
+    color: black
+}
+
+.wrapper{
+    display: inline-block;
+    margin: 8px;
+}

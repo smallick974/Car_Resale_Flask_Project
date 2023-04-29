@@ -8,6 +8,8 @@ requests = "*"
 flask = "*"
 flask-restful = "*"
 psycopg2 = "*"
+flask-wtf = "*"
+wtforms = "*"
 
 [dev-packages]
 

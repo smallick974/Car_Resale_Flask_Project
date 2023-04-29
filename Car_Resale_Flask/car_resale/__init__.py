@@ -1,6 +1,8 @@
 from flask import Flask
 from configparser import ConfigParser
 
+carapp = Flask(__name__)
+
 # To read config file and get the values
 parser = ConfigParser()
 parser.read('prjconfigs.cfg')
@@ -12,3 +14,4 @@ carapp = Flask(__name__)
 carapp.config['SECRET_KEY'] = secret_key
 
 from car_resale import routes
+
