@@ -1,0 +1,89 @@
+{% extends "Base.html" %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block content %}
+
+    <br/><br/><br/><br/>
+        
+        <div class="container-fluid wrapper">
+            <form method="post" class="form-register">
+                {{ form.hidden_tag() }}
+                <h1 class="h3 mb-3 font-weight-normal">&nbsp;&nbsp;&nbsp;&nbsp;
+                    Please Create your Account
+                </h1><br/>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.firstname.label(class="form-label") }}  
+                        {{ form.firstname(placeholder="First Name", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.lastname.label(class="form-label") }} 
+                        {{ form.lastname(placeholder="Last Name", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.dob.label(class="form-label") }} 
+                        {{ form.dob(placeholder="Date Of Birth", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.contact.label(class="form-label") }} 
+                        {{ form.contact(placeholder="Contact", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.addr_1.label(class="form-label") }} 
+                        {{ form.addr_1(placeholder="Address Line 1", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.addr_2.label(class="form-label") }} 
+                        {{ form.addr_2(placeholder="Address Line 2", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.city.label(class="form-label") }} 
+                        {{ form.city(placeholder="City", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.state.label(class="form-label") }} 
+                        {{ form.state(placeholder="State", class="form-select") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.zipcode.label(class="form-label") }} 
+                        {{ form.zipcode(placeholder="Zip Code", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.country.label(class="form-label") }} 
+                        {{ form.country(placeholder="Country", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.emailid.label(class="form-label") }} 
+                        {{ form.emailid(placeholder="Email Id", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper">
+                        {{ form.password.label(class="form-label") }} 
+                        {{ form.password(placeholder="Password", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.confirm_password.label(class="form-label") }} 
+                        {{ form.confirm_password(placeholder="Confirm Password", class="form-control") }}
+                    </div>
+                    <div class="col-md-5 wrapper"><br/>
+                        {{ form.submit(class="btn btn-primary mb-3") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+{% endblock %}

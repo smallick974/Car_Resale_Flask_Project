@@ -1,0 +1,90 @@
+-- DATABASE: dbCarResale
+
+-- SCHEMA: car
+
+-- DROP SCHEMA IF EXISTS car ;
+
+CREATE SCHEMA IF NOT EXISTS car
+    AUTHORIZATION postgres;
+
+CREATE TABLE IF NOT EXISTS car.tblCarManufacturer (
+    manufacturerid serial PRIMARY KEY,
+    mname character varying,
+    isactive boolean DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS car.tblCarModel (
+    modelid serial PRIMARY KEY,
+    manufacturerid integer REFERENCES car.tblCarManufacturer(manufacturerid) ON DELETE CASCADE,
+    modelname character varying,
+    isactive boolean DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS car.tblUser (
+    userid serial PRIMARY KEY,
+    firstname character varying,
+    lastname character varying,
+    emailid character varying UNIQUE NOT NULL,
+    pass character varying,
+    dob date,
+    addr_1 text,
+    addr_2 text,
+    city text,
+    states text,
+    zip integer,
+    country text,
+    contact character varying(13) UNIQUE,
+    last_login timestamp without time zone,
+    user_type text
+);
+
+CREATE TABLE IF NOT EXISTS car.tblCar (
+    carid serial PRIMARY KEY,
+    userid integer REFERENCES car.tblUser(userid) ON DELETE CASCADE,
+    manufacturer integer REFERENCES car.tblCarManufacturer(manufacturerid),
+    model integer REFERENCES car.tblCarModel(modelid),
+    title_status character varying,
+    buildyear integer,
+    carcondition character varying,
+    cylinders integer,
+    fuel character varying,
+    odometer integer,
+    transmission character varying,
+    vin character varying,
+    drive character varying,
+    carsize character varying,
+    cartype character varying,
+    paint_color character varying,
+    description text,
+    states text,
+    purchased_uid character varying,
+    posting_date date,
+    price integer,
+    sold_out boolean DEFAULT false,
+    selling_price integer
+);
+
+CREATE TABLE IF NOT EXISTS car.tblCarImage (
+	imageid serial PRIMARY KEY,
+    userid integer REFERENCES car.tblUser(userid) ON DELETE CASCADE,
+    carid integer REFERENCES car.tblCar(carid) ON DELETE CASCADE,
+    image_url character varying
+);
+
+CREATE TABLE IF NOT EXISTS car.tblWishlist (
+	wishid serial PRIMARY KEY,
+    userid integer REFERENCES car.tblUser(userid) ON DELETE CASCADE,
+    carid integer REFERENCES car.tblCar(carid) ON DELETE CASCADE,
+    wishdate date
+);
+
+CREATE TABLE IF NOT EXISTS car.tblAuthenticate(
+	authid serial PRIMARY KEY,
+	userid integer REFERENCES car.tblUser(userid),
+	tokenid character varying UNIQUE
+);
+
+
+
+
+	
