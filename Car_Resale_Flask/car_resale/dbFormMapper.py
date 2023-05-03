@@ -1,6 +1,7 @@
 import functools
 from car_resale.dbConstants import DbConstants
 from werkzeug.security import generate_password_hash
+import datetime
 
 def user_data_mapper(func):
     @functools.wraps(func)
@@ -29,6 +30,8 @@ def user_data_mapper(func):
         if "country" in user_form_data:
             user_dict[DbConstants.COUNTRY] = user_form_data.get("country")
         if "contact" in user_form_data:
-            user_dict[DbConstants.CONTACT] = user_form_data.get("contact")   
+            user_dict[DbConstants.CONTACT] = user_form_data.get("contact")  
+        user_dict[DbConstants.LAST_LOGIN] =  datetime.datetime.now(datetime.timezone.utc)
+        user_dict[DbConstants.USER_TYPE] = "customer"
         return user_dict
     return user_decorator

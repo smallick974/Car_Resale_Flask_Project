@@ -30,4 +30,6 @@ class DbConstants:
     'MP':'Madhya Pradesh','MH':'Maharashtra','MN':'Manipur','ML':'Meghalaya','MZ':'Mizoram','NL':'Nagaland','OR':'Orissa','PY':'Pondicherry','PB':'Punjab','RJ':'Rajasthan','SK':'Sikkim',
     'TN':'Tamil Nadu','TR':'Tripura','UP':'Uttar Pradesh','UK':'Uttarakhand','WB':'West Bengal'}
 
+    Country_DICT = {'IN' : 'India'}
+
      

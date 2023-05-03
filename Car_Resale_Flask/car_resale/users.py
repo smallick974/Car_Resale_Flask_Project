@@ -9,7 +9,9 @@ class Users:
     def get_mapped_user_data(user_form_data): return
        
     def create_user(user_form_data):
-        user_dict = Users.get_mapped_user_data(user_form_data)
-        result = DatabaseQueries.insert_data(DbConstants.TBL_USER, user_dict)
-        print("Result: ", result)
-    
+        try:
+            user_dict = Users.get_mapped_user_data(user_form_data)
+            result = DatabaseQueries.insert_data(DbConstants.TBL_USER, user_dict)
+            print("Result: ", result)
+        except Exception as e:
+            print("Error: ", e)

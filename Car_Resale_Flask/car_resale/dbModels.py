@@ -10,27 +10,28 @@ class DatabaseQueries:
     def insert_data(table_name, data_dict):
         try:
             with DatabaseConn() as cursor:
-                print("Cursor: ", cursor)
                 query = "insert into car."+ table_name + "(" + \
                             ",".join(data_dict.keys()) + ")" + \
                                 " values(" + ",".join(["%s"] * len(data_dict.keys())) + ")"
-
-                print(query)
-                print(list(data_dict.values()),)
-                cursor.executemany(query, (list(data_dict.values()),))
+                cursor.execute(query, list(data_dict.values()))
                 return True
+
         except DatabaseError as e:
             print("Error: ", e)
 
-    def search_data():
+    def search_data(table_name,column_name_list,data_dict):
         try:
             with DatabaseConn() as cursor:   
-                cursor.execute("select * from car.tblUser")
+                if data_dict == {}:
+                    query = "select " + ",".join(column_name_list) +" from car."+ table_name
+                else:
+                    query = "select " + ",".join(column_name_list) +" from car."+ table_name + \
+                                " where " + " and ".join(name +" = " +"'"+data_dict[name]+"'" for name in data_dict)
+                cursor.execute(query)
                 result = cursor.fetchall()
-                print(result)
-        except InterfaceError as e:
-            print("InterfaceError: ", e)
-        except ProgrammingError as e:
-            print("ProgrammingError: ", e)
+                return result
+        except Exception as e:
+            print("Exception: ", e)
 
+    
         

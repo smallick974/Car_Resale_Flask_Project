@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS car.tblUser (
     addr_2 text,
     city text,
     states text,
-    zip integer,
+    zip character varying(6),
     country text,
     contact character varying(13) UNIQUE,
     last_login timestamp without time zone,

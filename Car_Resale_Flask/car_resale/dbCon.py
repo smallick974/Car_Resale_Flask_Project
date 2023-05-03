@@ -26,8 +26,8 @@ class DatabaseConn:
         Context Manager class to create and close database connections
     """
     def __init__(self):
-        self.cursor = None
         self.con = None
+        self.cursor = None
 
     def __enter__(self):
         try:   
@@ -47,9 +47,17 @@ class DatabaseConn:
                                 )
             self.cursor = self.con.cursor()
             return self.cursor
+        
         except DatabaseError as e:
             print("Error: ", e)
 
     def __exit__(self,exc_type,exc_value,exc_traceback):
         self.cursor.close()
+        if exc_type is not None:
+            self.con.rollback()
+        else:    
+            self.con.commit()
         self.con.close()
+
+        
+        

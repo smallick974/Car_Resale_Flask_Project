@@ -7,10 +7,12 @@ Class to map API classes with various URls. Acts as an URL Manager.
 """
 api = Api(carapp) #creating API object
 
-# URLs for class Users:
-api.add_resource(Welcome,'/','/home',endpoint='mainpage')   
+#URLs for Homepage:
+api.add_resource(Welcome,'/','/home',endpoint='mainpage')
+
+# URLs for class Users:   
 api.add_resource(UserSignUp,'/signup',endpoint='usersignup')
-api.add_resource(UserSignIn,'/login')
+api.add_resource(UserSignIn,'/login', endpoint='login')
 
-
+# For searching
 api.add_resource(SearchData,'/search')
