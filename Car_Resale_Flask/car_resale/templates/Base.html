@@ -12,12 +12,12 @@
            
         <title>
             {% block title %}
-            {% endblock %}
+            {% endblock title %}
         </title>
     </head>
 
     <body>
-
+            
         <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#aa66cc">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url_for('mainpage') }}">Automobile Resale Portals<sub><br/>Powered By AI</sub></a>
@@ -25,31 +25,69 @@
                         <input class="form-control" id="txtCarSearch" type="text" placeholder="Search Cars by manufacturers or model name"><br/>
                     </div>
 
-                    <div>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="#login" class="nav-link" data-bs-toggle="modal"><span></span>&nbsp;&nbsp;Sell You Car</a><br/>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-lg-end">
-                                    <li><a href="{{ url_for('login') }}" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-log-in"></span> &nbsp;&nbsp;Login</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a href="#reset_password" data-bs-toggle="modal" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a href="{{ url_for('usersignup') }}" class="nav-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Sign Up</a></li>
-                        </ul>
-                    </div>
+                {% if current_user.is_authenticated %}
+
+                        <div>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><span></span>&nbsp;&nbsp;Sell Your Car</a><br/>
+                                </li> 
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><span></span>&nbsp;&nbsp;Wishlist</a><br/>
+                                </li> 
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Hi {{ current_user.firstname }} ({{ current_user.user_type }})
+                                            
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                        <li><a href="" class="dropdown-item"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;My Profile</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="" class="dropdown-item"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Car Listings</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        {% if current_user.user_type == 'admin' %}
+                                        <li><a href="" class="dropdown-item" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Admin Task</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        {% endif %}
+                                        <li><a href="" data-bs-toggle="modal" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="{{ url_for('logout') }}" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Sign Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul><div class="divcolor">Last Login: {{ current_user.last_login }} </div>
+                        </div>
+
+                {% else %}
+
+
+                        <div>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="#login" class="nav-link" data-bs-toggle="modal"><span></span>&nbsp;&nbsp;Sell You Car</a><br/>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                        <li><a href="{{ url_for('login') }}" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-log-in"></span> &nbsp;&nbsp;Login</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="#reset_password" data-bs-toggle="modal" class="dropdown-item"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="{{ url_for('usersignup') }}" class="nav-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Sign Up</a></li>
+                            </ul>
+                        </div>
+
+                {% endif %}                        
             </div>
-        </nav>    
+        </nav> 
+        
             
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="text-align:center" >
+                    <div id="flash_div" class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="text-align:center" >
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         {{ message }}
                     </div>
@@ -58,9 +96,7 @@
         {% endwith %}
 
         {% block content %}
-        {% endblock %}
-
-        
+        {% endblock content %}
 
         <!-- The sequence should be always - jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" 

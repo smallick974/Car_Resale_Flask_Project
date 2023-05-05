@@ -1,12 +1,23 @@
 
-{% extends "Base.html" %}
+{% extends 'Base.html' %}
 
 {% block title %}
     Welcome
-{% endblock %}
+{% endblock title %}
 
 {% block content %}
-<br/><br/>
-<p style="text-align: center;">This is the Main Page</p>
+    <br/><br/>
+    <p style="text-align: center;">This is the Main Page<br/><br/>
+    
+    {% if current_user.is_authenticated %}
+        Hi {{ current_user.firstname }} <br/>
+        {{ current_user.lastname }}
+        {{ current_user.emailid }}
+        {{ current_user.lastlogin }}
+        {{ current_user.usertype }}
+    {% else %}
+        <p style="text-align: center;">No login user</p>
+    {% endif %}
+    </p>
 
-{% endblock %}
+{% endblock content %}

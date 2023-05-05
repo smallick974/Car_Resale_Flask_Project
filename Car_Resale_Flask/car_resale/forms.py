@@ -75,3 +75,11 @@ class SignUp(FlaskForm):
     contact = IntegerField(label="Mobile Number", validators=[NumberRange(min=1000000000, max=9999999999), DataRequired()])
     submit = SubmitField(label='Sign Up')
 
+class SignIn(FlaskForm):
+
+    # Flask Form field that directly maps in HTML form
+    emailid = EmailField(label="Email ID", validators=[Email(message="Incorrect Email ID"), DataRequired()])
+    password = PasswordField("Password", validators=[Length(min=8, max=25), DataRequired()])
+    submit = SubmitField(label='Sign In')
+
+    

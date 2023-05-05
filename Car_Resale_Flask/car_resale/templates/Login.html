@@ -5,7 +5,39 @@
 {% endblock %}
 
 {% block content %}
-<br/><br/><br/><br/><br/>
-<p style="text-align: center;">Log In page in progress..</p>
+        <br/>
+        <div class="container-fluid wrapper">
+            <form method="post" class="form-register">
+                {{ form.hidden_tag() }}
+                <h1 class="h3 mb-3 font-weight-normal">&nbsp;&nbsp;&nbsp;&nbsp;
+                    Sign In to your account
+                </h1><br/>
+                <div class="row justify-content-md-center">  
+                    <div class="col-md-5 wrapper">   
+                        {{ form.emailid.label(class="form-label") }} 
+                        {{ form.emailid(placeholder="Email Id", class="form-control") }}
+                    </div>
+                </div>    
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 wrapper">
+                        {{ form.password.label(class="form-label") }} 
+                        {{ form.password(placeholder="Password", class="form-control") }}
+                    </div>
+                </div>   
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto wrapper">
+                        <h6>Do not have an account?</h6>
+                     </div>
+                     <div class="col-md-2 wrapper">
+                        <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ url_for('usersignup') }}">Sign Up</a>
+                     </div>
+                </div> <br/>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto wrapper">
+                        {{ form.submit(class="btn btn-primary mb-3") }}
+                    </div>
+                </div>        
+            </form>
+        </div>
 
 {% endblock %}

@@ -1,5 +1,6 @@
 from flask import Flask
 from configparser import ConfigParser
+from flask_login import LoginManager
 
 carapp = Flask(__name__)
 
@@ -11,6 +12,10 @@ parser.read('prjconfigs.cfg')
 secret_key = ''.join([parser['SECRET_KEY'][key] for key in parser['SECRET_KEY'] if 'SECRET_KEY' in parser])
 
 carapp.config['SECRET_KEY'] = secret_key
+
+login_manager = LoginManager(carapp)
+login_manager.login_view = 'login'
+login_manager.login_message_category = "info"
 
 from car_resale import routes
 

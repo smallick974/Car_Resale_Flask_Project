@@ -1,4 +1,4 @@
-from psycopg2 import ProgrammingError, InterfaceError, DatabaseError
+from psycopg2 import DatabaseError
 from car_resale.dbCon import DatabaseConn
 
 class DatabaseQueries:
@@ -27,6 +27,7 @@ class DatabaseQueries:
                 else:
                     query = "select " + ",".join(column_name_list) +" from car."+ table_name + \
                                 " where " + " and ".join(name +" = " +"'"+data_dict[name]+"'" for name in data_dict)
+                    print(query)
                 cursor.execute(query)
                 result = cursor.fetchall()
                 return result
